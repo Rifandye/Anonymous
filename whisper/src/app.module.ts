@@ -3,6 +3,8 @@ import { PostsModule } from './posts/posts.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { Post } from './posts/posts.entity';
+import { User } from './auth/user.entity';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { AuthModule } from './auth/auth.module';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
-          autoLoadEntities: true,
+          entities: [Post, User],
           synchronize: true,
         };
       },
