@@ -1,8 +1,8 @@
 import { Post } from 'src/posts/posts.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -23,4 +23,10 @@ export class User {
 
   @OneToMany((_type) => Post, (post) => post.user, { eager: true })
   posts: Post[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @CreateDateColumn()
+  updatedAt: Date;
 }
