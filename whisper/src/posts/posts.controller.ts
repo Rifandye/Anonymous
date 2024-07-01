@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -30,5 +38,13 @@ export class PostsController {
     @GetUser() user: User,
   ): Promise<PostEntity> {
     return this.postService.getPostById(id, user);
+  }
+
+  @Delete('/:id')
+  deletePostById(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.postService.deletePostById(id, user);
   }
 }

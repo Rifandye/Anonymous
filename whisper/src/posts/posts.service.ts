@@ -36,9 +36,17 @@ export class PostsService {
     const post = await this.postRepository.findOne({ where: { id, user } });
 
     if (!post) {
-      throw new NotFoundException();
+      throw new NotFoundException('Post not found');
     }
 
     return post;
+  }
+
+  async deletePostById(id: string, user: User): Promise<void> {
+    const result = await this.postRepository.delete({ id, user });
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Post not found');
+    }
   }
 }
