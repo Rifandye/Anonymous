@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -17,5 +17,10 @@ export class PostsController {
     @GetUser() user: User,
   ): Promise<PostEntity> {
     return this.postService.createPost(createPostDto, user);
+  }
+
+  @Get()
+  getAllPost(@GetUser() user: User): Promise<PostEntity[]> {
+    return this.postService.getPosts(user);
   }
 }

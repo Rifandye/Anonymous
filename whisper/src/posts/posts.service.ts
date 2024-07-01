@@ -25,4 +25,10 @@ export class PostsService {
 
     return post;
   }
+
+  async getPosts(user: User): Promise<Post[]> {
+    const posts = await this.postRepository.find({ where: { user } });
+
+    return posts;
+  }
 }
