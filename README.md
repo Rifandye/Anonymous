@@ -1,6 +1,6 @@
 # Anonymous
 
-Anonymous is a pioneering social media app project designed to create a secure platform where users can engage in interactions without revealing their identities. Drawing inspiration from popular apps like Whisper and others with similar objectives, Anonymous prioritizes the seamless and anonymous sharing of personal stories and images, fostering a community where privacy and expression go hand in hand.
+Anonymous is a social media app project designed to create a secure platform where users can engage in interactions without revealing their identities. Drawing inspiration from popular apps like Whisper and others with similar objectives, Anonymous prioritizes the seamless and anonymous sharing of personal stories and images, fostering a community where privacy and expression go hand in hand.
 
 ## Technologies Used
 
