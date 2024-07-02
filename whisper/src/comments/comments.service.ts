@@ -35,7 +35,7 @@ export class CommentsService {
       post,
     });
 
-    const savedComment = this.commentsRepository.save(commentedPost);
+    const savedComment = await this.commentsRepository.save(commentedPost);
 
     return savedComment;
   }
