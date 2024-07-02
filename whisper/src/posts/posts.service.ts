@@ -4,6 +4,7 @@ import { Post } from './posts.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { User } from 'src/auth/user.entity';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -27,19 +28,44 @@ export class PostsService {
   }
 
   async getPosts(user: User): Promise<Post[]> {
-    const posts = await this.postRepository.find({ where: { user } });
+    const posts = await this.postRepository.find({
+      where: { user: { id: user.id } },
+    });
 
     return posts;
   }
 
   async getPostById(id: string, user: User): Promise<Post> {
-    const post = await this.postRepository.findOne({ where: { id, user } });
+    const post = await this.postRepository.findOne({
+      where: { id, user: { id: user.id } },
+    });
 
     if (!post) {
       throw new NotFoundException('Post not found');
     }
 
     return post;
+  }
+
+  async updatePostById(
+    id: string,
+    user: User,
+    updatePostDto: UpdatePostDto,
+  ): Promise<Post> {
+    const result = await this.postRepository.update(
+      { id, user },
+      updatePostDto,
+    );
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const updatedPost = await this.postRepository.findOne({
+      where: { id, user: { id: user.id } },
+    });
+
+    return updatedPost;
   }
 
   async deletePostById(id: string, user: User): Promise<void> {
