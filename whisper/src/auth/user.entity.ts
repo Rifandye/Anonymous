@@ -1,4 +1,5 @@
-import { Post } from 'src/posts/posts.entity';
+import { Comment } from '../comments/comments.entitry';
+import { Post } from '../posts/posts.entity';
 import {
   Column,
   CreateDateColumn,
@@ -23,6 +24,9 @@ export class User {
 
   @OneToMany((_type) => Post, (post) => post.user, { eager: true })
   posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment;
 
   @CreateDateColumn()
   createdAt: Date;

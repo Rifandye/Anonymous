@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { Post } from './posts/posts.entity';
 import { User } from './auth/user.entity';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/comments.entitry';
 
 @Module({
   imports: [
@@ -22,13 +24,14 @@ import { User } from './auth/user.entity';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
-          entities: [Post, User],
+          entities: [Post, User, Comment],
           synchronize: true,
         };
       },
     }),
     PostsModule,
     AuthModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],

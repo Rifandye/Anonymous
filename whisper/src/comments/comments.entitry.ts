@@ -1,32 +1,29 @@
 import { Exclude } from 'class-transformer';
 import { User } from '../auth/user.entity';
+import { Post } from '../posts/posts.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Comment } from '../comments/comments.entitry';
 
-@Entity('Posts')
-export class Post {
+@Entity('Comments')
+export class Comment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  image: string;
+  content: string;
 
-  @Column()
-  description: string;
-
-  @ManyToOne((_type) => User, (user) => user.posts, { eager: false })
+  @ManyToOne(() => User, (user) => user.comments)
   @Exclude({ toPlainOnly: true })
   user: User;
 
-  @OneToMany(() => Comment, (comment) => comment.post, { eager: true })
-  comments: Comment[];
+  @ManyToOne(() => Post, (post) => post.comments)
+  @Exclude({ toPlainOnly: true })
+  post: Post;
 
   @CreateDateColumn()
   createdAt: Date;
