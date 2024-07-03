@@ -5,12 +5,16 @@ import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { User } from '../auth/user.entity';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Comment } from '../comments/comments.entitry';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Post)
     private postRepository: Repository<Post>,
+
+    @InjectRepository(Comment)
+    private commentRepository: Repository<Comment>,
   ) {}
 
   async createPost(createPostDto: CreatePostDto, user: User): Promise<Post> {
@@ -69,6 +73,17 @@ export class PostsService {
   }
 
   async deletePostById(id: string, user: User): Promise<void> {
+    const post = await this.postRepository.findOne({
+      where: { id, user: { id: user.id } },
+    });
+    console.log(user);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    await this.commentRepository.delete({ post });
+
     const result = await this.postRepository.delete({ id, user });
 
     if (result.affected === 0) {
