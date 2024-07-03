@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
+import { GetUserSearchDto } from './dto/get-user-search.dto';
 
 @Injectable()
 export class AuthService {
@@ -71,5 +72,16 @@ export class AuthService {
     const accessToken = this.jwtService.sign(payload);
 
     return { accessToken };
+  }
+
+  async searchUser(searchDto: GetUserSearchDto): Promise<User[]> {
+    const { search } = searchDto;
+
+    const query = this.userRepository.createQueryBuilder('user');
+
+    query.andWhere('user.username ILIKE :search', { search: `%${search}%` });
+
+    const users = await query.getMany();
+    return users;
   }
 }

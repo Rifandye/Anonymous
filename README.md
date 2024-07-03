@@ -7,9 +7,10 @@ Anonymous is a social media app project designed to create a secure platform whe
 - ### Backend
 
 > - PostgreSQL
-> - Nest.JS
+> - Nest JS
 > - TypeOrm
 > - TypeScript
+> - Passport JS
 
 # Future Plan
 
