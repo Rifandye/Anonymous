@@ -4,7 +4,7 @@ import { PostsService } from './posts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Post } from './posts.entity';
 import { AuthModule } from '../auth/auth.module';
-import { Comment } from '../comments/comments.entitry';
+import { Comment } from '../comments/comments.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post, Comment]), AuthModule],

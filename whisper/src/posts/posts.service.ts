@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { User } from '../auth/user.entity';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Comment } from '../comments/comments.entitry';
+import { Comment } from '../comments/comments.entity';
 
 @Injectable()
 export class PostsService {

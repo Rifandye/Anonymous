@@ -1,5 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { User } from '../auth/user.entity';
+import { Comment } from '../comments/comments.entity';
+import { Like } from '../likes/likes.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,7 +10,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Comment } from '../comments/comments.entitry';
 
 @Entity('Posts')
 export class Post {
@@ -27,6 +28,9 @@ export class Post {
 
   @OneToMany(() => Comment, (comment) => comment.post, { eager: true })
   comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.post, { eager: true })
+  likes: Like;
 
   @CreateDateColumn()
   createdAt: Date;
